@@ -1,0 +1,22 @@
+{
+  "name": "food-udemy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iliashon/project_food_udemy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iliashon/project_food_udemy/issues"
+  },
+  "homepage": "https://github.com/iliashon/project_food_udemy#readme",
+  "devDependencies": {
+    "json-server": "^0.17.2"
+  }
+} 
