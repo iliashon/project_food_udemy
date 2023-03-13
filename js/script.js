@@ -179,36 +179,22 @@ window.addEventListener('DOMContentLoaded', () =>{
           }
         }
 
-        new MenuCard(
-          "img/tabs/vegy.jpg",
-          "vegy",
-          'Меню "Фитнес"',
-          'Меню "Фитнес" - это новый подход к приготовлению блюд',
-          9,
-          '.menu .container',
-        ).render();
+        const getResource = async (url) => {
+          const res = await fetch(url);
 
-        new MenuCard(
-          "img/tabs/vegy.jpg",
-          "vegy",
-          'Меню "Фитнес"',
-          'Меню "Фитнес" - это новый подход к приготовлению блюд',
-          9,
-          '.menu .container',
-          'menu__item',
-          'big'
-        ).render();
+          if (!res.ok) {
+            throw new Erorr(`Could not fetch ${url}, status: ${res.status}`);
+          }
 
-        new MenuCard(
-          "img/tabs/vegy.jpg",
-          "vegy",
-          'Меню "Фитнес"',
-          'Меню "Фитнес" - это новый подход к приготовлению блюд',
-          9,
-          '.menu .container',
-          'menu__item',
-          'big'
-        ).render();
+          return await res.json();
+        };
+        
+        getResource('http://localhost:3000/menu')
+        .then(data => {
+          data.forEach(({img, altimg, title, descr, price}) => {
+            new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+          });
+        });
 
         // Forms
         
@@ -221,10 +207,22 @@ window.addEventListener('DOMContentLoaded', () =>{
         };
 
         forms.forEach(item => {
-          postData(item);
+          bindpostData(item);
         });
 
-        function postData(form) {
+        const postData = async (url, data) => {
+          const res = await fetch(url, {
+            method: 'POST',
+              headers: {
+                'Content-type': 'application/json'
+              },
+              body: data
+          });
+
+          return await res.json();
+        };
+
+        function bindpostData(form) {
           form.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -235,19 +233,9 @@ window.addEventListener('DOMContentLoaded', () =>{
 
             const formData = new FormData(form);
 
-            const object = {};
-            formData.forEach(function(value, key){
-              object[key] = value;
-            });
+            const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-            fetch('server.php', {
-              method: 'POST',
-              headers: {
-                'Content-type': 'application/json'
-              },
-              body: JSON.stringify(object)
-            })
-            .then(data => data.text())
+            postData('http://localhost:3000/requests', json)
             .then(data => {
                 console.log(data);
                 statusMassage.textContent = message.success;
