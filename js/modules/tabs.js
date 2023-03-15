@@ -36,4 +36,4 @@ const tabs = document.querySelectorAll('.tabheader__item'),
     });
 }
 
-module.exports = tabs;
+export default tabs;
