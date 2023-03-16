@@ -14,3 +14,9 @@
 
  - ### Navigation block with information and types of food
 
+## Libraries and technologies
+ - JavaScript 
+ - Webpack
+ - Json-server
+ - Babel 
+ - Core-js
