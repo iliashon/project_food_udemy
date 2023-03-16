@@ -19,4 +19,7 @@
  - Webpack
  - Json-server
  - Babel 
- - Core-js
+   - Core-js
+   - Babel-loader
+   - es6-promise
+   - nodelist-foreach-polyfill
